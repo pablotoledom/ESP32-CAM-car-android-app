@@ -1,97 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SecondFragment">
+    android:layout_width="fill_parent" android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/textview_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/button_second"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/previous"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_second" />
-
-    <TextView
-        android:id="@+id/textView_angle_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="0°"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
 
 
-    <TextView
-        android:id="@+id/textView_strength_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView_angle_right"
-        android:text="0%"/>
+        <TextView
+            android:id="@+id/configMainTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/configTitle"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/wifiNetworkTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/wifiConfigTitle"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/configMainTitle" />
+
+        <TextView
+            android:id="@+id/downTitleText"
+            android:layout_width="fill_parent"
+            android:layout_height="37dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/wifiDownText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wifiNetworkTitle" />
+
+        <Button
+            android:id="@+id/scanWIFIBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scanWIFIBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/downTitleText" />
+
+        <ListView
+            android:id="@+id/WIFIList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="195dp"
+            tools:layout_editor_absoluteY="159dp"
+            app:layout_constraintTop_toBottomOf="@+id/scanWIFIBtn" />
 
 
-    <TextView
-        android:id="@+id/textView_coordinate_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView_strength_right"
-        android:text="x050:x050"/>
+        <EditText
+            android:id="@+id/SSIDWIFI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/ssidWIFIText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/WIFIList" />
 
-    <io.github.controlwear.virtual.joystick.android.JoystickView
-        android:id="@+id/joystickView_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="64dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginBottom="5dp"
-        app:JV_backgroundColor="#FFFC33"
-        app:JV_borderColor="#000000"
-        app:JV_borderWidth="8dp"
-        app:JV_buttonColor="#000000"
-        />
+        <EditText
+            android:id="@+id/PassWIFI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:hint="@string/passWIFIText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.514"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SSIDWIFI" />
 
-    <Button
-        android:id="@+id/bocina"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="Tocar bocina"
-        android:layout_marginTop="0dp"
-        />
+        <TextView
+            android:id="@+id/controlTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/controlTitle"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/PassWIFI" />
 
-    <Button
-        android:id="@+id/luzOn"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="Encender luz"
-        android:layout_marginTop="60dp"
-        />
+        <TextView
+            android:id="@+id/downControlTitleText"
+            android:layout_width="fill_parent"
+            android:layout_height="37dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/downControlTitleText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/controlTitle" />
 
-    <Button
-        android:id="@+id/luzOff"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="Apagar luz"
-        android:layout_marginTop="120dp"
-        />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/downControlTitleText"
+            tools:layout_editor_absoluteX="6dp">
+
+            <RadioButton
+                android:id="@+id/radioButtonButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/radioButtonButtons" />
+
+            <RadioButton
+                android:id="@+id/radioButtonjoystick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/radioButtonjoystick" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/saveBtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/saveBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+        <Button
+            android:id="@+id/cancelBtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cancelBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/saveBtn" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
