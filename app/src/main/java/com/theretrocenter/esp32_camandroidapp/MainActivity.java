@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         ProgressDialog dialog=new ProgressDialog(MainActivity.this);
-        /*dialog.setMessage("Searching your Remote WIFI Car on the network. \n\nPlease wait a few minutes.");
+        dialog.setMessage("Searching your Remote WIFI Car on the network. \n\nPlease wait a few minutes.");
         dialog.setCancelable(false);
         dialog.setInverseBackgroundForced(false);
-        dialog.show();*/
+        dialog.show();
 
         new android.os.Handler(Looper.getMainLooper()).postDelayed(
         new Runnable() {

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.theretrocenter.esp32_camandroidapp.ControlCar"
+        android:name="com.theretrocenter.esp32_camandroidapp.ControlCarFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/controlcar_joystick">
 

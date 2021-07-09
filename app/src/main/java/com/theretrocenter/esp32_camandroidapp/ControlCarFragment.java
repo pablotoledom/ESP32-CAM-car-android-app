@@ -1,7 +1,6 @@
 package com.theretrocenter.esp32_camandroidapp;
 
 import android.annotation.SuppressLint;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -24,24 +23,25 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import io.github.controlwear.virtual.joystick.android.JoystickView;
 
-public class ControlCar extends Fragment {
+public class ControlCarFragment extends Fragment {
 
     private MainActivity MainActivity = new MainActivity();
     private MjpegView viewer;
     private Boolean ligthOn = false;
     private String lastCommand = "";
-    private String controlType = "buttons";
+
+    Preferences preferences = Preferences.getInstance(MainActivity);
 
     private void carExecuteAction(String command) {
         // Get IP
-        Preferences preferences = Preferences.getInstance(MainActivity);
-        String RemoteWIFICarIP = preferences.getData("RemoteWIFICarIP");
+        //Preferences preferences = Preferences.getInstance(MainActivity);
+        String remoteWIFICarIP = preferences.getData("RemoteWIFICarIP");
 
         // Create http cliient object to send request to server
         HttpClient Client = new DefaultHttpClient();
 
         // Create URL string
-        String URL = "http://" + RemoteWIFICarIP + "/control?command=car&value=" + command;
+        String URL = "http://" + remoteWIFICarIP + "/control?command=car&value=" + command;
 
         Log.i("httpget", URL);
 
@@ -86,7 +86,7 @@ public class ControlCar extends Fragment {
     }
 
     public void showCam() {
-        Preferences preferences = Preferences.getInstance(MainActivity);
+        //Preferences preferences = Preferences.getInstance(MainActivity);
         String RemoteWIFICarIP = preferences.getData("RemoteWIFICarIP");
 
         viewer = (MjpegView) getView().findViewById(R.id.mjpegview);
@@ -112,17 +112,21 @@ public class ControlCar extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        if (controlType.equals("joystick")) {
+        String carUIControl = preferences.getData("CarUIControl");
+
+        if (carUIControl.equals("joystick")) {
             // Inflate the layout for this fragment
             return inflater.inflate(R.layout.controlcar_joystick, container, false);
         }
 
         return inflater.inflate(R.layout.controlcar_buttons, container, false);
-    }
 
+    }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        String carUIControl = preferences.getData("CarUIControl");
 
         view.findViewById(R.id.light).setBackgroundResource(R.drawable.ic_light_off);
 
@@ -131,7 +135,7 @@ public class ControlCar extends Fragment {
 
         showCam();
 
-        if (controlType.equals("joystick")) {
+        if (carUIControl.equals("joystick")) {
             final JoystickView joystickRight = (JoystickView) getView().findViewById(R.id.joystickView_right);
             joystickRight.setOnMoveListener(new JoystickView.OnMoveListener() {
                 @SuppressLint("DefaultLocale")
@@ -140,9 +144,7 @@ public class ControlCar extends Fragment {
                     moveCar(joystickRight.getNormalizedX(), joystickRight.getNormalizedY());
                 }
             });
-        }
-
-        if (controlType.equals("buttons")) {
+        } else {
             view.findViewById(R.id.upButton).setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -239,7 +241,7 @@ public class ControlCar extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    NavHostFragment.findNavController(ControlCar.this)
+                    NavHostFragment.findNavController(ControlCarFragment.this)
                             .navigate(R.id.action_FirstFragment_to_SecondFragment);
 
                     //when user leaves application
