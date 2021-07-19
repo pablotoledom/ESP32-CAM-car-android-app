@@ -77,27 +77,28 @@
         app:srcCompat="@drawable/megaphone" />
 
     <ImageButton
-        android:id="@+id/light"
+        android:id="@+id/light_cam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="34dp"
         android:layout_marginRight="34dp"
-        android:background="@null"
         android:contentDescription="@string/light"
+        android:background="@null"
         app:layout_constraintEnd_toStartOf="@+id/claxon"
         app:layout_constraintTop_toBottomOf="@+id/mjpegview"
-        app:srcCompat="@drawable/light" />
+        app:srcCompat="@drawable/light_opacity" />
 
     <ImageButton
         android:id="@+id/config"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
         android:background="@null"
         android:contentDescription="@string/config"
-        app:layout_constraintEnd_toStartOf="@+id/leftButton"
-        app:layout_constraintStart_toEndOf="@+id/upButton"
+        app:layout_constraintEnd_toStartOf="@+id/light_cam"
         app:layout_constraintTop_toTopOf="@+id/midle_guideline"
         app:srcCompat="@drawable/settings" />
 
@@ -105,7 +106,6 @@
         android:id="@+id/upButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:background="@null"
         android:contentDescription="@string/upButton"
         app:layout_constraintStart_toStartOf="@+id/left_buttom_guideline"
@@ -141,8 +141,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:background="@null"
         android:contentDescription="@string/rightButton"
         app:layout_constraintEnd_toStartOf="@+id/right_buttom_guideline"

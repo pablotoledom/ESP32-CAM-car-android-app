@@ -23,8 +23,11 @@
     <string name="radioButtonButtons">Buttons</string>
     <string name="radioButtonjoystick">Joystick</string>
     <string name="downControlTitleText">Select your preferred UI control</string>
+    <string name="statusTitle">Status</string>
 
     <string name="ssidWIFIText">SSID</string>
     <string name="passWIFIText">Password</string>
+
+    <string name="userGuideTitle">User Guide</string>
 
 </resources>

@@ -4,5 +4,20 @@
         android:drawable="@drawable/ic_arrow_down_pressed" /> <!-- presionado -->
     <item android:state_focused="true"
         android:drawable="@drawable/ic_arrow_down" /> <!-- centrado -->
-    <item android:drawable="@drawable/ic_arrow_down" /> <!-- Por Defecto -->
+    <item>
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <solid />
+                    <size android:height="40dp" android:width="40dp" />
+                </shape>
+            </item>
+            <item
+                android:drawable="@drawable/ic_arrow_down"
+                android:bottom="20dp"
+                android:top="20dp"
+                android:left="20dp"
+                android:right="20dp"/>
+        </layer-list>
+    </item>
 </selector>

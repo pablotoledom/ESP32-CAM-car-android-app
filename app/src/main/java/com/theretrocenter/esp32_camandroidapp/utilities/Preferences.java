@@ -1,4 +1,4 @@
-package com.theretrocenter.esp32_camandroidapp;
+package com.theretrocenter.esp32_camandroidapp.utilities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,16 +14,20 @@ public class Preferences {
         return yourPreference;
     }
 
+    // Constructor
     private Preferences(Context context) {
-        sharedPreferences = context.getSharedPreferences("YourCustomNamedPreference", Context.MODE_PRIVATE);
+        // App key to manage data
+        sharedPreferences = context.getSharedPreferences("RemoteWIFICar", Context.MODE_PRIVATE);
     }
 
+    // Save method
     public void saveData(String key,String value) {
         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
         prefsEditor .putString(key, value);
         prefsEditor.commit();
     }
 
+    // Read method
     public String getData(String key) {
         if (sharedPreferences!= null) {
             return sharedPreferences.getString(key, "");

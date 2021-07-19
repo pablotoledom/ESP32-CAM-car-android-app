@@ -3,6 +3,6 @@
     <item android:state_pressed="true"
         android:drawable="@drawable/ic_light_on" /> <!-- presionado -->
     <item android:state_focused="true"
-        android:drawable="@drawable/ic_light_off" /> <!-- centrado -->
+        android:drawable="@drawable/ic_light_on" /> <!-- centrado -->
     <item android:drawable="@drawable/ic_light_off" /> <!-- Por Defecto -->
 </selector>

@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true"
-        android:drawable="@drawable/ic_arrow_left" /> <!-- presionado -->
+        android:drawable="@drawable/ic_arrow_left" />
     <item android:state_focused="true"
-        android:drawable="@drawable/ic_arrow_left" /> <!-- centrado -->
-    <item android:drawable="@drawable/ic_arrow_left_opacity" /> <!-- Por Defecto -->
+        android:drawable="@drawable/ic_arrow_left" />
+    <item>
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <solid />
+                    <size android:height="40dp" android:width="40dp" />
+                </shape>
+            </item>
+            <item
+                android:drawable="@drawable/ic_arrow_left_opacity"
+                android:bottom="20dp"
+                android:top="20dp"
+                android:left="20dp"
+                android:right="20dp"/>
+        </layer-list>
+    </item>
 </selector>

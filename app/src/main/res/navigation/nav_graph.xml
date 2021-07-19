@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.theretrocenter.esp32_camandroidapp.SecondFragment"
+        android:name="com.theretrocenter.esp32_camandroidapp.ConfigurationFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/configuration">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"

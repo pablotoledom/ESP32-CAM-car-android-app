@@ -40,14 +40,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05" />
+        app:layout_constraintGuide_percent="0.02" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/right_buttom_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95" />
+        app:layout_constraintGuide_percent="0.98" />
 
     <com.longdo.mjpegviewer.MjpegView
         android:id="@+id/mjpegview"
@@ -62,6 +62,8 @@
         android:id="@+id/claxon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:background="@null"
         android:contentDescription="@string/claxon"
@@ -70,7 +72,7 @@
         app:srcCompat="@drawable/megaphone_opacity" />
 
     <ImageButton
-        android:id="@+id/light"
+        android:id="@+id/light_cam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -102,18 +104,18 @@
         android:contentDescription="@string/upButton"
         app:layout_constraintBottom_toTopOf="@+id/downButton"
         app:layout_constraintStart_toStartOf="@+id/left_buttom_guideline"
-        app:srcCompat="@drawable/btn_up" />
+        app:srcCompat="@drawable/btn_up_opacity" />
 
     <ImageButton
         android:id="@+id/downButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:background="@null"
         android:contentDescription="@string/downButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/left_buttom_guideline"
-        app:srcCompat="@drawable/btn_down" />
+        app:srcCompat="@drawable/btn_down_opacity" />
 
     <ImageButton
         android:id="@+id/leftButton"
@@ -126,7 +128,7 @@
         android:contentDescription="@string/leftButton"
         app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
         app:layout_constraintEnd_toStartOf="@+id/rightButton"
-        app:srcCompat="@drawable/btn_left" />
+        app:srcCompat="@drawable/btn_left_opacity" />
 
     <ImageButton
         android:id="@+id/rightButton"
@@ -137,6 +139,6 @@
         android:contentDescription="@string/rightButton"
         app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
         app:layout_constraintEnd_toStartOf="@+id/right_buttom_guideline"
-        app:srcCompat="@drawable/btn_right" />
+        app:srcCompat="@drawable/btn_right_opacity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
