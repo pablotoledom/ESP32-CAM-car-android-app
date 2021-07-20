@@ -2,7 +2,6 @@ package com.theretrocenter.esp32_camandroidapp;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,56 +13,28 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.longdo.mjpegviewer.MjpegView;
-
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-
+import com.theretrocenter.esp32_camandroidapp.RemoteWIFICar.RemoteWIFICar;
+import com.theretrocenter.esp32_camandroidapp.utilities.Preferences;
 import io.github.controlwear.virtual.joystick.android.JoystickView;
 
 public class ControlCarFragment extends Fragment {
 
-    private MainActivity MainActivity = new MainActivity();
+    private MainActivity mainActivity = new MainActivity();
+    private RemoteWIFICar remoteWIFICar = new RemoteWIFICar();
+    private Preferences preferences = Preferences.getInstance(mainActivity);
     private MjpegView viewer;
-    private Boolean ligthOn = false;
     private String lastCommand = "";
+    private Boolean ligthOn = false;
+    private Boolean forwardActived = false;
 
-    Preferences preferences = Preferences.getInstance(MainActivity);
-
-    private void carExecuteAction(String command) {
-        // Get IP
-        //Preferences preferences = Preferences.getInstance(MainActivity);
-        String remoteWIFICarIP = preferences.getData("RemoteWIFICarIP");
-
-        // Create http cliient object to send request to server
-        HttpClient Client = new DefaultHttpClient();
-
-        // Create URL string
-        String URL = "http://" + remoteWIFICarIP + "/control?command=car&value=" + command;
-
-        Log.i("httpget", URL);
-
-        try {
-            String SetServerString = "";
-
-            // Create Request to server and get response
-            HttpGet httpget = new HttpGet(URL);
-            ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            SetServerString = Client.execute(httpget, responseHandler);
-
-            // Show response on activity
-            Log.i("httpget", SetServerString);
-
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+    // Get saved preferences
+    private String carUIControl = preferences.getData("CarUIControl");
+    private String remoteWIFICarIP = preferences.getData("RemoteWIFICarIP");
 
     public void moveCar(Integer x, Integer y) {
         String command = "";
 
+        // Determine movement based on the index of movement of axes
         if (x > 75) {
             command = "turnright";
         } else if (x < 25) {
@@ -76,30 +47,30 @@ public class ControlCarFragment extends Fragment {
             command = "stop";
         }
 
+        // Execute action only when the command changes
         if (command != lastCommand) {
-            carExecuteAction(command);
-            Log.i("command XXXXXXXX", command);
+            remoteWIFICar.executeAction(command, remoteWIFICarIP);
+            Log.i("Execute command", command);
         }
 
+        // Set the last command
         lastCommand = command;
-
     }
 
     public void showCam() {
-        //Preferences preferences = Preferences.getInstance(MainActivity);
-        String RemoteWIFICarIP = preferences.getData("RemoteWIFICarIP");
-
+        // Set jpeg video url to viewer
         viewer = (MjpegView) getView().findViewById(R.id.mjpegview);
         viewer.setMode(MjpegView.MODE_FIT_WIDTH);
         viewer.setAdjustHeight(true);
         viewer.setSupportPinchZoomAndPan(true);
-        viewer.setUrl("http://" + RemoteWIFICarIP + ":81/stream");
+        viewer.setUrl("http://" + remoteWIFICarIP + ":81/stream");
         viewer.startStream();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         try {
+            // Stop viewer when rotate display
             viewer.stopStream();
         } catch(Exception ex) {
             //ex.printStackTrace();
@@ -112,30 +83,24 @@ public class ControlCarFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        String carUIControl = preferences.getData("CarUIControl");
-
+        // Determine UI control layout
         if (carUIControl.equals("joystick")) {
-            // Inflate the layout for this fragment
+            // Inflate the joystick layout for this fragment
             return inflater.inflate(R.layout.controlcar_joystick, container, false);
         }
 
+        // Inflate the buttons layout for this fragment
         return inflater.inflate(R.layout.controlcar_buttons, container, false);
-
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String carUIControl = preferences.getData("CarUIControl");
-
-        view.findViewById(R.id.light).setBackgroundResource(R.drawable.ic_light_off);
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
+        // Load video jpeg
         showCam();
 
         if (carUIControl.equals("joystick")) {
+            // Execute car movements for a Joystick event
             final JoystickView joystickRight = (JoystickView) getView().findViewById(R.id.joystickView_right);
             joystickRight.setOnMoveListener(new JoystickView.OnMoveListener() {
                 @SuppressLint("DefaultLocale")
@@ -145,16 +110,20 @@ public class ControlCarFragment extends Fragment {
                 }
             });
         } else {
+            // Execute car movements for a buttons events
             view.findViewById(R.id.upButton).setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         // Pressed
-                        carExecuteAction("forward");
+                        remoteWIFICar.executeAction("forward", remoteWIFICarIP);
+                        v.setBackgroundResource(R.drawable.ic_circle);
+                        forwardActived = true;
                     } else if (event.getAction() == MotionEvent.ACTION_UP) {
                         // Released
-                        // v.setBackgroundResource(R.drawable.ic_megaphone_opacity);
-                        carExecuteAction("stop");
+                        v.setBackgroundResource(0);
+                        remoteWIFICar.executeAction("stop", remoteWIFICarIP);
+                        forwardActived = false;
                     }
                     return true;
                 }
@@ -165,11 +134,12 @@ public class ControlCarFragment extends Fragment {
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         // Pressed
-                        carExecuteAction("backward");
+                        remoteWIFICar.executeAction("backward", remoteWIFICarIP);
+                        v.setBackgroundResource(R.drawable.ic_circle);
                     } else if (event.getAction() == MotionEvent.ACTION_UP) {
                         // Released
-                        // v.setBackgroundResource(R.drawable.ic_megaphone_opacity);
-                        carExecuteAction("stop");
+                        v.setBackgroundResource(0);
+                        remoteWIFICar.executeAction("stop", remoteWIFICarIP);
                     }
                     return true;
                 }
@@ -180,11 +150,16 @@ public class ControlCarFragment extends Fragment {
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         // Pressed
-                        carExecuteAction("turnleft");
+                        remoteWIFICar.executeAction("turnleft", remoteWIFICarIP);
+                        v.setBackgroundResource(R.drawable.ic_circle);
                     } else if (event.getAction() == MotionEvent.ACTION_UP) {
                         // Released
-                        // v.setBackgroundResource(R.drawable.ic_megaphone_opacity);
-                        carExecuteAction("stop");
+                        if (forwardActived) {
+                            remoteWIFICar.executeAction("forward", remoteWIFICarIP);
+                        } else {
+                            v.setBackgroundResource(0);
+                            remoteWIFICar.executeAction("stop", remoteWIFICarIP);
+                        }
                     }
                     return true;
                 }
@@ -195,11 +170,16 @@ public class ControlCarFragment extends Fragment {
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         // Pressed
-                        carExecuteAction("turnright");
+                        remoteWIFICar.executeAction("turnright", remoteWIFICarIP);
+                        v.setBackgroundResource(R.drawable.ic_circle);
                     } else if (event.getAction() == MotionEvent.ACTION_UP) {
                         // Released
-                        // v.setBackgroundResource(R.drawable.ic_megaphone_opacity);
-                        carExecuteAction("stop");
+                        if (forwardActived) {
+                            remoteWIFICar.executeAction("forward", remoteWIFICarIP);
+                        } else {
+                            v.setBackgroundResource(0);
+                            remoteWIFICar.executeAction("stop", remoteWIFICarIP);
+                        }
                     }
                     return true;
                 }
@@ -212,25 +192,25 @@ public class ControlCarFragment extends Fragment {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     // Pressed
                     v.setBackgroundResource(R.drawable.ic_megaphone_pressed);
-                    carExecuteAction("claxonon");
+                    remoteWIFICar.executeAction("claxonon", remoteWIFICarIP);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     // Released
                     v.setBackgroundResource(R.drawable.ic_megaphone_opacity);
-                    carExecuteAction("claxonoff");
+                    remoteWIFICar.executeAction("claxonoff", remoteWIFICarIP);
                 }
                 return true;
             }
         });
 
-        view.findViewById(R.id.light).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.light_cam).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (ligthOn) {
-                    carExecuteAction("lightoff");
-                    view.setBackgroundResource(R.drawable.ic_light_off_opacity);
+                    remoteWIFICar.executeAction("lightoff", remoteWIFICarIP);
+                    view.setBackgroundResource(0);
                     ligthOn = false;
                 } else {
-                    carExecuteAction("lighton");
+                    remoteWIFICar.executeAction("lighton", remoteWIFICarIP);
                     view.setBackgroundResource(R.drawable.ic_light_on);
                     ligthOn = true;
                 }
@@ -241,10 +221,11 @@ public class ControlCarFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
+                    // Go to configuration fragment layout
                     NavHostFragment.findNavController(ControlCarFragment.this)
                             .navigate(R.id.action_FirstFragment_to_SecondFragment);
 
-                    //when user leaves application
+                    // Stop the viewer
                     viewer.stopStream();
                 } catch(Exception ex) {
                     ex.printStackTrace();

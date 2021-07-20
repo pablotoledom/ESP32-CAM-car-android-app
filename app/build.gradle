@@ -43,4 +43,5 @@ dependencies {
     implementation 'io.github.controlwear:virtualjoystick:1.9.2'
     implementation 'com.github.perthcpe23:android-mjpeg-view:v1.0.9'
     implementation 'com.android.support:percent:23.3.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
 }
