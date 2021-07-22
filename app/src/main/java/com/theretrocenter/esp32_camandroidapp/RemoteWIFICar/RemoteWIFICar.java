@@ -67,11 +67,12 @@ public class RemoteWIFICar {
         try {
             Preferences preferences = Preferences.getInstance(context);
 
-            // Mock IP server
+            // *********** Mock IP server ********
             if (true) {
                 dialog.hide();
-                preferences.saveData("RemoteWIFICarIP", "192.168.1.123");
-                return "192.168.1.123";
+                String mockIP = "192.168.1.135:8080";
+                preferences.saveData("RemoteWIFICarIP", mockIP);
+                return mockIP;
             }
 
             // Find WIFI Car IP
@@ -129,7 +130,20 @@ public class RemoteWIFICar {
 
     public void executeAction(String command, String remoteWIFICarIP) {
         try {
-            // Create http cliient object to send request to server
+            // Create URL string
+            String saveSettingsURL = "http://" + remoteWIFICarIP + "/control?command=car&value=" + command;
+
+            // HTTP json Call
+            JSONParser jParser = new JSONParser();
+            JSONObject json = jParser.GetJSONfromUrl(saveSettingsURL);
+
+            // Show response on activity
+            Log.i("httpget", json.toString());
+
+            //JSONObject c = json.getJSONObject(0);
+
+
+            /*// Create http cliient object to send request to server
             HttpClient Client = new DefaultHttpClient();
             Client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 500);
             Client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 500);
@@ -146,7 +160,7 @@ public class RemoteWIFICar {
             serverResponseString = Client.execute(httpget, responseHandler);
 
             // Show response on activity
-            Log.i("Action response", serverResponseString);
+            Log.i("Action response", serverResponseString);*/
 
         } catch(Exception ex) {
             // ex.printStackTrace();
@@ -160,8 +174,10 @@ public class RemoteWIFICar {
             // Create URL string
             String wifiListURL = "http://" + remoteWIFICarIP + "/wifilist/";
 
+            // HTTP json Call
             JSONParser jParser = new JSONParser();
-            JSONArray json = jParser.GetJSONfromUrl(wifiListURL);
+            JSONObject jsonArray = jParser.GetJSONfromUrl(wifiListURL);
+            JSONArray json = jsonArray.optJSONArray("result");
 
             Log.d("json", json.toString());
 
@@ -191,24 +207,17 @@ public class RemoteWIFICar {
 
     public void saveWIFISettings(String ssidB64, String passB64, String UIControl, String remoteWIFICarIP) {
         try {
-            // Create http cliient object to send request to server
-            HttpClient Client = new DefaultHttpClient();
-            Client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 1500);
-            Client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 1500);
-
             // Create URL string
-            String URL = "http://" + remoteWIFICarIP + "/control?command=saveconfig&ssid=" + ssidB64 + "&password=" + passB64 + "&usercontrol=" + UIControl;
-            Log.i("URL to save config:", URL);
+            String saveSettingsURL = "http://" + remoteWIFICarIP + "/control?command=saveconfig&ssid=" + ssidB64 + "&password=" + passB64 + "&usercontrol=" + UIControl;
 
-            String SetServerString = "";
-
-            // Create Request to server and get response
-            HttpGet httpget = new HttpGet(URL);
-            ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            SetServerString = Client.execute(httpget, responseHandler);
+            // HTTP json Call
+            JSONParser jParser = new JSONParser();
+            JSONObject json = jParser.GetJSONfromUrl(saveSettingsURL);
 
             // Show response on activity
-            Log.i("httpget", SetServerString);
+            Log.i("httpget", json.toString());
+
+
         } catch(Exception ex) {
             ex.printStackTrace();
         }

@@ -5,6 +5,7 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.CoreConnectionPNames;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,9 +20,12 @@ public class JSONParser {
     }
 
     // Get Json data from URL method
-    public JSONArray GetJSONfromUrl(String url){
+    public JSONObject GetJSONfromUrl(String url){
         StringBuilder builder = new StringBuilder();
         HttpClient client = new DefaultHttpClient();
+        client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 1500);
+        client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 1500);
+
         String serverResponseString = "";
 
         try {
@@ -39,12 +43,12 @@ public class JSONParser {
             // Parse string to json object
             jsonOb = new JSONObject(serverResponseString);
             // Extract result object
-            jarray = jsonOb.optJSONArray("result");
+            //jarray = jsonOb.optJSONArray("result");
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
 
-        return jarray;
+        return jsonOb;
     }
 }

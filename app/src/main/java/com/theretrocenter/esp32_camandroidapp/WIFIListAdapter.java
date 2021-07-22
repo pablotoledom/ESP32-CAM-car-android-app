@@ -63,9 +63,9 @@ public class WIFIListAdapter extends ArrayAdapter<HashMap<String, String>> {
 
         // Define the security icon
         if (security.equals("NEED-PASS")) {
-            view.findViewById(R.id.wifiSecurity).setBackgroundResource(R.drawable.ic_padlock_open);
-        } else {
             view.findViewById(R.id.wifiSecurity).setBackgroundResource(R.drawable.ic_padlock_closed);
+        } else {
+            view.findViewById(R.id.wifiSecurity).setBackgroundResource(R.drawable.ic_padlock_open);
         }
 
         // onclick WIFI list item listener
@@ -81,5 +81,8 @@ public class WIFIListAdapter extends ArrayAdapter<HashMap<String, String>> {
         });
 
         return view;
+    }
+
+    public static class UserGuideFragment {
     }
 }

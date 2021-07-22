@@ -1,11 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/userGuideTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
+
+            <TextView
+                android:id="@+id/userGuideTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/userGuideTitle"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/userGuideInstructions"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="@string/firstInstructions"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userGuideTitle" />
+
+            <TextView
+                android:id="@+id/firstInstructionsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/firstInstructionsText"
+                android:justificationMode="inter_word"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userGuideInstructions" />
+
+            <ImageView
+                android:id="@+id/firstInstructionsIMG"
+                android:layout_width="387dp"
+                android:layout_height="337dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/firstInstructionsText"
+                app:srcCompat="@drawable/wifi_1" />
+
+            <TextView
+                android:id="@+id/secondInstructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/secondInstructions"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/firstInstructionsIMG" />
+
+            <TextView
+                android:id="@+id/secondInstructionsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/secondInstructionsText"
+                android:justificationMode="inter_word"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/secondInstructions" />
+
+            <ImageView
+                android:id="@+id/secondtInstructionsIMG"
+                android:layout_width="387dp"
+                android:layout_height="437dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/secondInstructionsText"
+                app:srcCompat="@drawable/screenshot" />
+
+            <TextView
+                android:id="@+id/finalInstructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/finalInstructions"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/secondtInstructionsIMG" />
+
+            <TextView
+                android:id="@+id/finalInstructionsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/finalInstructionsText"
+                android:justificationMode="inter_word"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/finalInstructions" />
+
+            <ImageView
+                android:id="@+id/finaltInstructionsIMG"
+                android:layout_width="387dp"
+                android:layout_height="437dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/finalInstructionsText"
+                app:srcCompat="@drawable/screenshot_wifi" />
+
+            <TextView
+                android:id="@+id/finalInstructions2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/finalInstructions2"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/finaltInstructionsIMG" />
+
+
+            <TextView
+                android:id="@+id/finalInstructionsText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/finalInstructionsText2"
+                android:justificationMode="inter_word"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/finalInstructions2" />
+
+            <ImageView
+                android:id="@+id/finaltInstructionsIMG2"
+                android:layout_width="387dp"
+                android:layout_height="437dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/finalInstructionsText2"
+                app:srcCompat="@drawable/screenshot_ui" />
+
+            <Button
+                android:id="@+id/closeUserGuide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/closeUserGuide"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/finaltInstructionsIMG2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+

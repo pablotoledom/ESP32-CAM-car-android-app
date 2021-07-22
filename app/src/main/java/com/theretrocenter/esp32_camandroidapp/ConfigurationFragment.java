@@ -1,8 +1,10 @@
 package com.theretrocenter.esp32_camandroidapp;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +37,6 @@ public class ConfigurationFragment extends Fragment {
     private String carUIControl = preferences.getData("CarUIControl");
     private String remoteWIFICarIP = preferences.getData("RemoteWIFICarIP");
     private String ssidWIFISaved = preferences.getData("SSIDWIFI");
-
 
     @Override
     public View onCreateView(
@@ -93,8 +94,7 @@ public class ConfigurationFragment extends Fragment {
             public void onClick(View clickView) {
                 try {
                     // Get json WIFI list
-                    // ArrayList<HashMap<String, String>> jsonlist = remoteWIFICar.getWIFIList(remoteWIFICarIP);
-                    ArrayList<HashMap<String, String>> jsonlist = remoteWIFICar.getWIFIList("192.168.29.176:8080");
+                    ArrayList<HashMap<String, String>> jsonlist = remoteWIFICar.getWIFIList(remoteWIFICarIP);
 
                     // Set json WIFI list on listview
                     ListView listView = (ListView) view.findViewById(R.id.listWIFI);
@@ -155,7 +155,7 @@ public class ConfigurationFragment extends Fragment {
 
                 // Return to control car fragment layout
                 NavHostFragment.findNavController(ConfigurationFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
+                        .navigate(R.id.action_ConfigurationFragment_to_ControlCarFragment);
             }
         });
 
@@ -164,7 +164,19 @@ public class ConfigurationFragment extends Fragment {
             public void onClick(View view) {
                 // Return to control car fragment layout
                 NavHostFragment.findNavController(ConfigurationFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
+                        .navigate(R.id.action_ConfigurationFragment_to_ControlCarFragment);
+            }
+        });
+
+        view.findViewById(R.id.helpBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Save preferred UI control in preferences
+                preferences.saveData("SawUserGuide", "");
+
+                // Return to control car fragment layout
+                NavHostFragment.findNavController(ConfigurationFragment.this)
+                        .navigate(R.id.action_ConfigurationFragment_to_UserGuideFragment);
             }
         });
 

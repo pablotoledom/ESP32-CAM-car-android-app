@@ -30,6 +30,7 @@ public class ControlCarFragment extends Fragment {
     // Get saved preferences
     private String carUIControl = preferences.getData("CarUIControl");
     private String remoteWIFICarIP = preferences.getData("RemoteWIFICarIP");
+    private String sawUserGuide = preferences.getData("SawUserGuide");
 
     public void moveCar(Integer x, Integer y) {
         String command = "";
@@ -59,11 +60,14 @@ public class ControlCarFragment extends Fragment {
 
     public void showCam() {
         // Set jpeg video url to viewer
+        String mjpegSource = "http://" + remoteWIFICarIP + ":81/stream";
+        //String mjpegSource = "http://" + remoteWIFICarIP + "/stream/index.mjpeg";
+        Log.i("Execute command", mjpegSource);
         viewer = (MjpegView) getView().findViewById(R.id.mjpegview);
         viewer.setMode(MjpegView.MODE_FIT_WIDTH);
         viewer.setAdjustHeight(true);
         viewer.setSupportPinchZoomAndPan(true);
-        viewer.setUrl("http://" + remoteWIFICarIP + ":81/stream");
+        viewer.setUrl(mjpegSource);
         viewer.startStream();
     }
 
@@ -223,7 +227,7 @@ public class ControlCarFragment extends Fragment {
                 try {
                     // Go to configuration fragment layout
                     NavHostFragment.findNavController(ControlCarFragment.this)
-                            .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                            .navigate(R.id.action_ControlCarFragment_to_ConfigurationFragment);
 
                     // Stop the viewer
                     viewer.stopStream();

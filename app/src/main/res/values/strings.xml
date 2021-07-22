@@ -2,8 +2,9 @@
     <string name="app_name">ESP32-CAM Android App</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="user_guide_fragment_label">User Guide</string>
+    <string name="control_car_fragment_label">Control Car</string>
+    <string name="configuration_fragment_label">Configuration</string>
     <string name="config">WIFI and Config</string>
     <string name="claxon">Claxon</string>
     <string name="upButton">Forward</string>
@@ -21,7 +22,7 @@
     <string name="scanWIFIBtn">Scan WIFI networks</string>
     <string name="controlTitle">Control</string>
     <string name="radioButtonButtons">Buttons</string>
-    <string name="radioButtonjoystick">Joystick</string>
+    <string name="radioButtonjoystick">Virtual Joystick</string>
     <string name="downControlTitleText">Select your preferred UI control</string>
     <string name="statusTitle">Status</string>
 
@@ -29,5 +30,17 @@
     <string name="passWIFIText">Password</string>
 
     <string name="userGuideTitle">User Guide</string>
+    <string name="firstInstructions">Connect to the vehicle for the first time:</string>
+    <string name="firstInstructionsText">Turn on the vehicle, after a few seconds you can connect a WIFI network called (Remote WIFI car). <br /><br />Once connected, press the continue button, and the application will search for the vehicle on the network.</string>
+
+    <string name="secondInstructions">Main control screen:</string>
+    <string name="secondInstructionsText">This is the main screen, here you can move the vehicle, sound the horn and turn on the camera light, to configure the vehicle press the gear icon.</string>
+    <string name="finalInstructions">Connect the vehicle to your home WIFI network:</string>
+    <string name="finalInstructionsText">In the configuration section you can scan the nearby WIFI networks, once you see yours, select it and enter the password if applicable. After saving the changes it is necessary to restart the vehicle and this application.</string>
+    <string name="finalInstructions2">Vehicle user interface and control:</string>
+    <string name="finalInstructionsText2">You can also set the user interface that best suits you, you can choose between buttons or joystick. <br /><br />If you have a gamepad connected to the device, it will be configured automatically, simply operate the vehicle using the buttons or analog axes.</string>
+    <string name="closeUserGuide">I want to play!</string>
+    <string name="needHelp">Need help?</string>
+    <string name="helpBtn">Help here</string>
 
 </resources>

@@ -3,26 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/UserGuideFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/UserGuideFragment"
+        android:name="com.theretrocenter.esp32_camandroidapp.UserGuideFragment"
+        android:label="@string/user_guide_fragment_label"
+        tools:layout="@layout/user_guide">
+
+        <action
+            android:id="@+id/action_UserGuideFragment_to_ControlCarFragment"
+            app:destination="@id/ControlCarFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ControlCarFragment"
         android:name="com.theretrocenter.esp32_camandroidapp.ControlCarFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/control_car_fragment_label"
         tools:layout="@layout/controlcar_joystick">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_ControlCarFragment_to_ConfigurationFragment"
+            app:destination="@id/ConfigurationFragment" />
     </fragment>
+
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/ConfigurationFragment"
         android:name="com.theretrocenter.esp32_camandroidapp.ConfigurationFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/configuration_fragment_label"
         tools:layout="@layout/configuration">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_ConfigurationFragment_to_ControlCarFragment"
+            app:destination="@id/ControlCarFragment" />
+        <action
+            android:id="@+id/action_ConfigurationFragment_to_UserGuideFragment"
+            app:destination="@id/UserGuideFragment" />
     </fragment>
+
+
+
 </navigation>
