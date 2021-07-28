@@ -1,8 +1,10 @@
 package com.theretrocenter.esp32_camandroidapp;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.theretrocenter.esp32_camandroidapp.RemoteWIFICar.RemoteWIFICar;
+import com.theretrocenter.esp32_camandroidapp.utilities.IPAddress;
 import com.theretrocenter.esp32_camandroidapp.utilities.ListViewHeightBasedOnChildren;
 import com.theretrocenter.esp32_camandroidapp.utilities.Preferences;
 
@@ -92,70 +95,100 @@ public class ConfigurationFragment extends Fragment {
         view.findViewById(R.id.scanWIFIBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View clickView) {
-                try {
-                    // Get json WIFI list
-                    ArrayList<HashMap<String, String>> jsonlist = remoteWIFICar.getWIFIList(remoteWIFICarIP);
+                ProgressDialog loading = new ProgressDialog(thisContext);
+                loading.setCancelable(true);
+                loading.setMessage("Searching WIFI networks");
+                loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                loading.show();
 
-                    // Set json WIFI list on listview
-                    ListView listView = (ListView) view.findViewById(R.id.listWIFI);
-                    listView.setAdapter(new WIFIListAdapter(
-                            thisContext,
-                            R.layout.wifi_list,
-                            jsonlist,
-                            ssidWIFIET));
+                // Timeout one second
+                new android.os.Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    public void run() {
+                        try {
+                            // Get json WIFI list
+                            ArrayList<HashMap<String, String>> jsonlist = remoteWIFICar.getWIFIList(remoteWIFICarIP);
 
-                    // Adjust height to ListView
-                    ListViewHeightBasedOnChildren ListViewHeightBasedOnChildren = new ListViewHeightBasedOnChildren();
-                    ListViewHeightBasedOnChildren.setHeight(listView);
+                            // Set json WIFI list on listview
+                            ListView listView = (ListView) view.findViewById(R.id.listWIFI);
+                            listView.setAdapter(new WIFIListAdapter(
+                                    thisContext,
+                                    R.layout.wifi_list,
+                                    jsonlist,
+                                    ssidWIFIET));
 
-                } catch(Exception ex) {
-                    ex.printStackTrace();
-                }
+                            // Adjust height to ListView
+                            ListViewHeightBasedOnChildren ListViewHeightBasedOnChildren = new ListViewHeightBasedOnChildren();
+                            ListViewHeightBasedOnChildren.setHeight(listView);
+
+                            // Hidde loading message
+                            loading.hide();
+                            loading.dismiss();
+
+                        } catch(Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                },1000);
             }
         });
 
         view.findViewById(R.id.saveBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String UIControl = "";
+                ProgressDialog loading = new ProgressDialog(thisContext);
+                loading.setCancelable(true);
+                loading.setMessage("Saving data");
+                loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                loading.show();
 
                 // Get data from input edit text
                 String ssidWIFI = ssidWIFIET.getText().toString();
                 String passWIFI = passWIFIET.getText().toString();
 
-                // Validate SSID or Password changed
-                if (!ssidWIFISaved.equals(ssidWIFI) || !passWIFI.equals("")) {
-                    try {
-                        // Save ssid in preferences
-                        preferences.saveData("SSIDWIFI", ssidWIFI);
+                // Timeout one second
+                new android.os.Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    public void run() {
+                        // Validate SSID or Password changed
+                        if (!ssidWIFISaved.equals(ssidWIFI) || !passWIFI.equals("")) {
+                            try {
+                                String UIControl = "";
+                                // Save ssid in preferences
+                                preferences.saveData("SSIDWIFI", ssidWIFI);
 
-                        // Convert ssid and password to Base64
-                        byte[] bytes = ssidWIFI.getBytes("UTF-8");
-                        String text = new String(bytes, "UTF-8");
-                        String ssidB64 = Base64.encodeToString(ssidWIFI.getBytes("UTF-8"), Base64.NO_WRAP + Base64.URL_SAFE);
-                        String passB64 = Base64.encodeToString(passWIFI.getBytes("UTF-8"), Base64.NO_WRAP + Base64.URL_SAFE);
+                                // Convert ssid and password to Base64
+                                byte[] bytes = ssidWIFI.getBytes("UTF-8");
+                                String text = new String(bytes, "UTF-8");
+                                String ssidB64 = Base64.encodeToString(ssidWIFI.getBytes("UTF-8"), Base64.NO_WRAP + Base64.URL_SAFE);
+                                String passB64 = Base64.encodeToString(passWIFI.getBytes("UTF-8"), Base64.NO_WRAP + Base64.URL_SAFE);
 
-                        // Set default UI control
-                        if (selectedUIControl.equals("")) {
-                            UIControl = "buttonstext";
-                        } else {
-                            UIControl = selectedUIControl.equals("buttons") ? "buttonstext" : selectedUIControl;
+                                // Set default UI control
+                                if (selectedUIControl.equals("")) {
+                                    UIControl = "buttonstext";
+                                } else {
+                                    UIControl = selectedUIControl.equals("buttons") ? "buttonstext" : selectedUIControl;
+                                }
+
+                                // Send new configuration to WIFI car
+                                remoteWIFICar.saveWIFISettings(ssidB64, passB64, UIControl, remoteWIFICarIP);
+
+                            } catch(Exception ex) {
+                                ex.printStackTrace();
+                            }
                         }
 
-                        // Send new configuration to WIFI car
-                        remoteWIFICar.saveWIFISettings(ssidB64, passB64, UIControl, remoteWIFICarIP);
+                        // Save preferred UI control in preferences
+                        preferences.saveData("CarUIControl", selectedUIControl);
 
-                    } catch(Exception ex) {
-                        ex.printStackTrace();
+                        // Hidde loading message
+                        loading.hide();
+                        loading.dismiss();
+
+                        // Return to control car fragment layout
+                        NavHostFragment.findNavController(ConfigurationFragment.this)
+                                .navigate(R.id.action_ConfigurationFragment_to_ControlCarFragment);
                     }
-                }
+                },1000);
 
-                // Save preferred UI control in preferences
-                preferences.saveData("CarUIControl", selectedUIControl);
-
-                // Return to control car fragment layout
-                NavHostFragment.findNavController(ConfigurationFragment.this)
-                        .navigate(R.id.action_ConfigurationFragment_to_ControlCarFragment);
             }
         });
 

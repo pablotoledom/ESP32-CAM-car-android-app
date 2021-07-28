@@ -20,7 +20,7 @@
         android:id="@+id/ControlCarFragment"
         android:name="com.theretrocenter.esp32_camandroidapp.ControlCarFragment"
         android:label="@string/control_car_fragment_label"
-        tools:layout="@layout/controlcar_joystick">
+        tools:layout="@layout/controlcar_buttons">
 
         <action
             android:id="@+id/action_ControlCarFragment_to_ConfigurationFragment"

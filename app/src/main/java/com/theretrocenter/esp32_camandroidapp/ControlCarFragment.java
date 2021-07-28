@@ -1,7 +1,10 @@
 package com.theretrocenter.esp32_camandroidapp;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,7 +17,9 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.longdo.mjpegviewer.MjpegView;
 import com.theretrocenter.esp32_camandroidapp.RemoteWIFICar.RemoteWIFICar;
+import com.theretrocenter.esp32_camandroidapp.utilities.IPAddress;
 import com.theretrocenter.esp32_camandroidapp.utilities.Preferences;
+
 import io.github.controlwear.virtual.joystick.android.JoystickView;
 
 public class ControlCarFragment extends Fragment {
@@ -26,6 +31,7 @@ public class ControlCarFragment extends Fragment {
     private String lastCommand = "";
     private Boolean ligthOn = false;
     private Boolean forwardActived = false;
+    Context context;
 
     // Get saved preferences
     private String carUIControl = preferences.getData("CarUIControl");
@@ -61,7 +67,6 @@ public class ControlCarFragment extends Fragment {
     public void showCam() {
         // Set jpeg video url to viewer
         String mjpegSource = "http://" + remoteWIFICarIP + ":81/stream";
-        //String mjpegSource = "http://" + remoteWIFICarIP + "/stream/index.mjpeg";
         Log.i("Execute command", mjpegSource);
         viewer = (MjpegView) getView().findViewById(R.id.mjpegview);
         viewer.setMode(MjpegView.MODE_FIT_WIDTH);
@@ -69,6 +74,38 @@ public class ControlCarFragment extends Fragment {
         viewer.setSupportPinchZoomAndPan(true);
         viewer.setUrl(mjpegSource);
         viewer.startStream();
+    }
+
+    public void connectWithCar() {
+        // Loading dialog while finding for IP
+        ProgressDialog loading = new ProgressDialog(context);
+        loading.setCancelable(true);
+        loading.setMessage("Searching your Remote WIFI Car on the network. \n\nPlease wait a few minutes.");
+        loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        loading.show();
+
+        // Timeout one second
+        new android.os.Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            public void run() {
+                try {
+                    // Get local IP
+                    IPAddress ipAddress = new IPAddress();
+                    String localIP = ipAddress.getLocalIP(true);
+
+                    // Get Remote WIFI car IP
+                    RemoteWIFICar remoteWifiCar = new RemoteWIFICar();
+                    remoteWIFICarIP = remoteWifiCar.finderIP(localIP, mainActivity);
+                    Log.i("Remote WIFI Car IP", remoteWIFICarIP);
+
+                    // Hidde loading message
+                    loading.hide();
+                    loading.dismiss();
+
+                } catch(Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        },1000);
     }
 
     @Override
@@ -87,6 +124,8 @@ public class ControlCarFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+        context = container.getContext();
+
         // Determine UI control layout
         if (carUIControl.equals("joystick")) {
             // Inflate the joystick layout for this fragment
@@ -99,6 +138,9 @@ public class ControlCarFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Find car in the network
+        connectWithCar();
 
         // Load video jpeg
         showCam();
@@ -159,6 +201,7 @@ public class ControlCarFragment extends Fragment {
                     } else if (event.getAction() == MotionEvent.ACTION_UP) {
                         // Released
                         if (forwardActived) {
+                            v.setBackgroundResource(0);
                             remoteWIFICar.executeAction("forward", remoteWIFICarIP);
                         } else {
                             v.setBackgroundResource(0);
@@ -179,6 +222,7 @@ public class ControlCarFragment extends Fragment {
                     } else if (event.getAction() == MotionEvent.ACTION_UP) {
                         // Released
                         if (forwardActived) {
+                            v.setBackgroundResource(0);
                             remoteWIFICar.executeAction("forward", remoteWIFICarIP);
                         } else {
                             v.setBackgroundResource(0);

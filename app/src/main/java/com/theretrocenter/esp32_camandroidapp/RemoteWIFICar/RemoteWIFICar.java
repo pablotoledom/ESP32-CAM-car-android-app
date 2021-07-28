@@ -1,18 +1,12 @@
 package com.theretrocenter.esp32_camandroidapp.RemoteWIFICar;
 
-import android.app.ProgressDialog;
+
 import android.content.Context;
 import android.util.Log;
 
 import com.theretrocenter.esp32_camandroidapp.utilities.JSONParser;
 import com.theretrocenter.esp32_camandroidapp.utilities.Preferences;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.CoreConnectionPNames;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,28 +24,18 @@ public class RemoteWIFICar {
             return false;
         }
 
-        // Create http client object to send request to server
-        HttpClient Client = new DefaultHttpClient();
-        Client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 2000);
-        Client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 2000);
-
         // Create URL string
         String URL = "http://" + IP + "/control?command=car&value=stop";
 
         Log.i("URL to ping", URL);
 
         try {
-            String SetServerString = "";
+            // HTTP json Call
+            JSONParser jParser = new JSONParser();
+            JSONObject json = jParser.GetJSONfromUrl(URL, true);
+            String result = json.getString("result");
 
-            // Create Request to server and get response
-            HttpGet httpget = new HttpGet(URL);
-            ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            SetServerString = Client.execute(httpget, responseHandler);
-
-            // Show response on activity
-            Log.i("http body response", SetServerString);
-
-            if (SetServerString.equals("OK")) {
+            if (result.equals("OK")) {
                 return true;
             }
         }
@@ -63,14 +47,13 @@ public class RemoteWIFICar {
         return false;
     }
 
-    public String finderIP(String hostIP, ProgressDialog dialog, Context context) {
+    public String finderIP(String hostIP, Context context) {
         try {
             Preferences preferences = Preferences.getInstance(context);
 
             // *********** Mock IP server ********
             if (true) {
-                dialog.hide();
-                String mockIP = "192.168.1.135:8080";
+                String mockIP = "192.168.1.32:8080";
                 preferences.saveData("RemoteWIFICarIP", mockIP);
                 return mockIP;
             }
@@ -85,14 +68,12 @@ public class RemoteWIFICar {
             Boolean testSavedIP = networkPing(SavedIP);
 
             if (testSavedIP) {
-                dialog.hide();
                 return SavedIP;
             } else {
                 // Second test: Default IP Car
                 Boolean carDefaultIP = networkPing("192.168.4.1");
 
                 if (carDefaultIP) {
-                    dialog.hide();
                     preferences.saveData("RemoteWIFICarIP", "192.168.4.1");
                     return "192.168.4.1";
                 }
@@ -107,7 +88,6 @@ public class RemoteWIFICar {
                     Log.i("Result of test", testIP.toString());
 
                     if (testIP) {
-                        dialog.hide();
                         Log.i("I have found the IP", endIP.toString());
 
                         // Save
@@ -115,9 +95,6 @@ public class RemoteWIFICar {
                         return ipForTest;
                     }
                 }
-
-                // Hidde loading message
-                dialog.hide();
             }
 
             return baseIPScan;
@@ -135,48 +112,29 @@ public class RemoteWIFICar {
 
             // HTTP json Call
             JSONParser jParser = new JSONParser();
-            JSONObject json = jParser.GetJSONfromUrl(saveSettingsURL);
+            JSONObject json = jParser.GetJSONfromUrl(saveSettingsURL, true);
 
             // Show response on activity
-            Log.i("httpget", json.toString());
-
-            //JSONObject c = json.getJSONObject(0);
-
-
-            /*// Create http cliient object to send request to server
-            HttpClient Client = new DefaultHttpClient();
-            Client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 500);
-            Client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 500);
-
-            // Create URL string
-            String URL = "http://" + remoteWIFICarIP + "/control?command=car&value=" + command;
-
-            Log.i("Action URL", URL);
-
-            // Create Request to server and get response
-            HttpGet httpget = new HttpGet(URL);
-            String serverResponseString = "";
-            ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            serverResponseString = Client.execute(httpget, responseHandler);
-
-            // Show response on activity
-            Log.i("Action response", serverResponseString);*/
+            Log.i("URL Execute action", saveSettingsURL);
+            Log.i("Execute action", json.toString());
 
         } catch(Exception ex) {
             // ex.printStackTrace();
         }
     }
 
-    public ArrayList<HashMap<String, String>>  getWIFIList (String remoteWIFICarIP) {
+    public ArrayList<HashMap<String, String>> getWIFIList (String remoteWIFICarIP) {
         ArrayList<HashMap<String, String>> jsonlist = new ArrayList<HashMap<String, String>>();
 
         try {
             // Create URL string
-            String wifiListURL = "http://" + remoteWIFICarIP + "/wifilist/";
+            String wifiListURL = "http://" + remoteWIFICarIP + "/wifilist";
+
+            Log.i("URL WIFI list", wifiListURL);
 
             // HTTP json Call
             JSONParser jParser = new JSONParser();
-            JSONObject jsonArray = jParser.GetJSONfromUrl(wifiListURL);
+            JSONObject jsonArray = jParser.GetJSONfromUrl(wifiListURL, false);
             JSONArray json = jsonArray.optJSONArray("result");
 
             Log.d("json", json.toString());
@@ -212,10 +170,11 @@ public class RemoteWIFICar {
 
             // HTTP json Call
             JSONParser jParser = new JSONParser();
-            JSONObject json = jParser.GetJSONfromUrl(saveSettingsURL);
+            JSONObject json = jParser.GetJSONfromUrl(saveSettingsURL, false);
 
             // Show response on activity
-            Log.i("httpget", json.toString());
+            Log.i("URL WIFI and settings", saveSettingsURL);
+            Log.i("Save WIFI and settings", json.toString());
 
 
         } catch(Exception ex) {

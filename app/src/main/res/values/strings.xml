@@ -2,6 +2,7 @@
     <string name="app_name">ESP32-CAM Android App</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
+    <string name="loadingTextFindIP">Searching your Remote WIFI Car on the network. \n\nPlease wait a few minutes.</string>
     <string name="user_guide_fragment_label">User Guide</string>
     <string name="control_car_fragment_label">Control Car</string>
     <string name="configuration_fragment_label">Configuration</string>

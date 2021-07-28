@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.55" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/right_buttom_guideline"
@@ -106,6 +106,7 @@
         android:id="@+id/upButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:background="@null"
         android:contentDescription="@string/upButton"
         app:layout_constraintStart_toStartOf="@+id/left_buttom_guideline"
@@ -116,7 +117,7 @@
         android:id="@+id/downButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="16dp"
         android:background="@null"
         android:contentDescription="@string/downButton"
         app:layout_constraintStart_toStartOf="@+id/left_buttom_guideline"
@@ -127,7 +128,7 @@
         android:id="@+id/leftButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:background="@null"
@@ -140,7 +141,7 @@
         android:id="@+id/rightButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="48dp"
         android:background="@null"
         android:contentDescription="@string/rightButton"
         app:layout_constraintEnd_toStartOf="@+id/right_buttom_guideline"
