@@ -19,11 +19,11 @@ import com.longdo.mjpegviewer.MjpegView;
 import com.theretrocenter.esp32_camandroidapp.RemoteWIFICar.RemoteWIFICar;
 import com.theretrocenter.esp32_camandroidapp.utilities.IPAddress;
 import com.theretrocenter.esp32_camandroidapp.utilities.Preferences;
+import com.theretrocenter.esp32_camandroidapp.utilities.SingletonListener;
 
 import io.github.controlwear.virtual.joystick.android.JoystickView;
 
 public class ControlCarFragment extends Fragment {
-
     private MainActivity mainActivity = new MainActivity();
     private RemoteWIFICar remoteWIFICar = new RemoteWIFICar();
     private Preferences preferences = Preferences.getInstance(mainActivity);
@@ -32,6 +32,7 @@ public class ControlCarFragment extends Fragment {
     private Boolean ligthOn = false;
     private Boolean forwardActived = false;
     Context context;
+    ProgressDialog loading;
 
     // Get saved preferences
     private String carUIControl = preferences.getData("CarUIControl");
@@ -78,7 +79,7 @@ public class ControlCarFragment extends Fragment {
 
     public void connectWithCar() {
         // Loading dialog while finding for IP
-        ProgressDialog loading = new ProgressDialog(context);
+        loading = new ProgressDialog(context);
         loading.setCancelable(true);
         loading.setMessage("Searching your Remote WIFI Car on the network. \n\nPlease wait a few minutes.");
         loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -97,6 +98,9 @@ public class ControlCarFragment extends Fragment {
                     remoteWIFICarIP = remoteWifiCar.finderIP(localIP, mainActivity);
                     Log.i("Remote WIFI Car IP", remoteWIFICarIP);
 
+                    // Load video jpeg
+                    showCam();
+
                     // Hidde loading message
                     loading.hide();
                     loading.dismiss();
@@ -113,6 +117,9 @@ public class ControlCarFragment extends Fragment {
         try {
             // Stop viewer when rotate display
             viewer.stopStream();
+            // Dismiss dialog when rotate display
+            loading.hide();
+            loading.dismiss();
         } catch(Exception ex) {
             //ex.printStackTrace();
         }
@@ -139,11 +146,11 @@ public class ControlCarFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Set true, for stop propagation on keyDown and keyUp events in human interfaces
+        preferences.saveData("controlCar", "true");
+
         // Find car in the network
         connectWithCar();
-
-        // Load video jpeg
-        showCam();
 
         if (carUIControl.equals("joystick")) {
             // Execute car movements for a Joystick event
@@ -281,5 +288,21 @@ public class ControlCarFragment extends Fragment {
             }
         });
 
+        SingletonListener mySingletonListener = SingletonListener.getInstance();
+        mySingletonListener.setListener(new SingletonListener.ChangeListener() {
+            @Override
+            public void onChange() {
+                try {
+                    // Go to configuration fragment layout
+                    NavHostFragment.findNavController(ControlCarFragment.this)
+                            .navigate(R.id.action_ControlCarFragment_to_ConfigurationFragment);
+
+                    // Stop the viewer
+                    viewer.stopStream();
+                } catch(Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
     }
 }

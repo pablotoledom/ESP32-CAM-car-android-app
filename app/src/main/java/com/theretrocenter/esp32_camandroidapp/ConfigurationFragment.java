@@ -1,12 +1,10 @@
 package com.theretrocenter.esp32_camandroidapp;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,11 +33,24 @@ public class ConfigurationFragment extends Fragment {
     private Preferences preferences = Preferences.getInstance(mainActivity);
     private Context thisContext;
     private String selectedUIControl = "";
+    ProgressDialog loading;
 
     // Get saved preferences
     private String carUIControl = preferences.getData("CarUIControl");
     private String remoteWIFICarIP = preferences.getData("RemoteWIFICarIP");
     private String ssidWIFISaved = preferences.getData("SSIDWIFI");
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        try {
+            // Dismiss dialog when rotate display
+            loading.hide();
+            loading.dismiss();
+        } catch(Exception ex) {
+            //ex.printStackTrace();
+        }
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     public View onCreateView(
@@ -55,6 +66,9 @@ public class ConfigurationFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Set false, for not stop propagation on keyDown and keyUp events in human interfaces
+        preferences.saveData("controlCar", "false");
 
         // Manage text edit
         EditText ssidWIFIET = view.findViewById(R.id.SSIDWIFIEditText);
@@ -95,7 +109,7 @@ public class ConfigurationFragment extends Fragment {
         view.findViewById(R.id.scanWIFIBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View clickView) {
-                ProgressDialog loading = new ProgressDialog(thisContext);
+                loading = new ProgressDialog(thisContext);
                 loading.setCancelable(true);
                 loading.setMessage("Searching WIFI networks");
                 loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -135,7 +149,7 @@ public class ConfigurationFragment extends Fragment {
         view.findViewById(R.id.saveBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProgressDialog loading = new ProgressDialog(thisContext);
+                loading = new ProgressDialog(thisContext);
                 loading.setCancelable(true);
                 loading.setMessage("Saving data");
                 loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -212,6 +226,5 @@ public class ConfigurationFragment extends Fragment {
                         .navigate(R.id.action_ConfigurationFragment_to_UserGuideFragment);
             }
         });
-
     }
 }

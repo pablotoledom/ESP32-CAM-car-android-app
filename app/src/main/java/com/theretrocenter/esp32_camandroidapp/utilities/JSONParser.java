@@ -35,7 +35,7 @@ public class JSONParser {
 
         try {
             // HTTP call
-            HttpClient client = HttpClientBuilder.create().build();
+            HttpClient client = HttpClientBuilder.create().disableAutomaticRetries().build();
             HttpGet httpget = new HttpGet(url);
             httpget.setParams(httpParameters);
             ResponseHandler<String> responseHandler = new BasicResponseHandler();

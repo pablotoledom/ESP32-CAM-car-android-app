@@ -33,6 +33,11 @@ public class UserGuideFragment  extends Fragment {
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Set false, for not stop propagation on keyDown and keyUp events in human interfaces
+        preferences.saveData("controlCar", "false");
+
         view.findViewById(R.id.closeUserGuide).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

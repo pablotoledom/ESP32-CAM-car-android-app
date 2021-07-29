@@ -1,22 +1,18 @@
 package com.theretrocenter.esp32_camandroidapp;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.KeyEvent;
 
-import com.theretrocenter.esp32_camandroidapp.RemoteWIFICar.RemoteWIFICar;
+import com.theretrocenter.esp32_camandroidapp.RemoteWIFICar.KeyManage;
 import com.theretrocenter.esp32_camandroidapp.utilities.Preferences;
+import com.theretrocenter.esp32_camandroidapp.utilities.SingletonListener;
 
 public class MainActivity extends AppCompatActivity {
-
-    ProgressDialog dialog;
-    private String lastCommand = "";
-    private String remoteWIFICarIP = "";
-    private RemoteWIFICar remoteWIFICar = new RemoteWIFICar();
+    private KeyManage keyManage = new KeyManage();
+    private Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,65 +23,41 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         // Set Instance preference
-        Preferences preferences = Preferences.getInstance(MainActivity.this);
+        preferences = Preferences.getInstance(MainActivity.this);
+
+        SingletonListener.initInstance();
 
         // Set main layout
         setContentView(R.layout.activity_main);
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        try {
-            // Dismiss dialog when rotate display
-            dialog.dismiss();
-        } catch(Exception ex) {
-            //ex.printStackTrace();
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        String isControlCar = preferences.getData("controlCar");
+
+        // Prevents on execute key events outside control car view
+        if (isControlCar.equals("true")) {
+            // Send key events to KeyManage car service
+            keyManage.onKeyDown(keyCode, event, MainActivity.this);
+            return true;
         }
-        super.onSaveInstanceState(outState);
+
+        // Propagate events in other views
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        String command = "";
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        String isControlCar = preferences.getData("controlCar");
 
-         switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-                command = "turnleft";
-                break;
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
-                command = "turnright";
-                break;
-            case KeyEvent.KEYCODE_DPAD_UP:
-                command = "forward";
-                break;
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-                command = "backward";
-                break;
-            case KeyEvent.KEYCODE_BUTTON_A:
-                 command = "claxonon";
-                 break;
-            case KeyEvent.KEYCODE_BUTTON_X:
-                 command = "lighton";
-                 break;
-            case KeyEvent.KEYCODE_BUTTON_B:
-                 command = "lightoff";
-                 break;
-            default:
-                command = "stop";
-                break;
-         }
-
-        // Execute action only when the command changes
-        if (command != lastCommand) {
-            remoteWIFICar.executeAction(command, remoteWIFICarIP);
-            Log.i("Execute command", command);
+        // Prevents on execute key events outside control car view
+        if (isControlCar.equals("true")) {
+            // Send key events to KeyManage car service
+            keyManage.onKeyUp(keyCode, event, MainActivity.this);
+            return true;
         }
 
-        // Set the last command
-        lastCommand = command;
-
-        Log.i("XXXXXXXX", String.valueOf(keyCode));
-
+        // Propagate events in other views
         return super.onKeyUp(keyCode, event);
     }
 }
