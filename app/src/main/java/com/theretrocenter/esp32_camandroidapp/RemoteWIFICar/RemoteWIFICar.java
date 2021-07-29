@@ -52,7 +52,7 @@ public class RemoteWIFICar {
             Preferences preferences = Preferences.getInstance(context);
 
             // *********** Mock IP server ********
-            if (true) {
+            if (false) {
                 String mockIP = "192.168.1.32:8080";
                 preferences.saveData("RemoteWIFICarIP", mockIP);
                 return mockIP;

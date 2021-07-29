@@ -3,7 +3,7 @@
     <item android:state_pressed="true"
         android:drawable="@drawable/ic_arrow_down_pressed" />
     <item android:state_focused="true"
-        android:drawable="@drawable/ic_arrow_down" />
+        android:drawable="@drawable/ic_arrow_down_focus" />
     <item>
         <layer-list>
             <item>
