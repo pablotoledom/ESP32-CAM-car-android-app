@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.theretrocenter.esp32_camandroidapp.RemoteWIFICar.RemoteWIFICar;
-import com.theretrocenter.esp32_camandroidapp.utilities.IPAddress;
 import com.theretrocenter.esp32_camandroidapp.utilities.ListViewHeightBasedOnChildren;
 import com.theretrocenter.esp32_camandroidapp.utilities.Preferences;
 
@@ -224,6 +223,15 @@ public class ConfigurationFragment extends Fragment {
                 // Return to control car fragment layout
                 NavHostFragment.findNavController(ConfigurationFragment.this)
                         .navigate(R.id.action_ConfigurationFragment_to_UserGuideFragment);
+            }
+        });
+
+        view.findViewById(R.id.creditsBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Go to credits view
+                NavHostFragment.findNavController(ConfigurationFragment.this)
+                        .navigate(R.id.action_ConfigurationFragment_to_CreditsFragment);
             }
         });
     }

@@ -37,10 +37,22 @@
             android:id="@+id/action_ConfigurationFragment_to_ControlCarFragment"
             app:destination="@id/ControlCarFragment" />
         <action
+            android:id="@+id/action_ConfigurationFragment_to_CreditsFragment"
+            app:destination="@id/CreditsFragment" />
+
+        <action
             android:id="@+id/action_ConfigurationFragment_to_UserGuideFragment"
             app:destination="@id/UserGuideFragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/CreditsFragment"
+        android:name="com.theretrocenter.esp32_camandroidapp.CreditsFragment"
+        android:label="@string/credits_fragment_label"
+        tools:layout="@layout/credits">
 
-
+        <action
+            android:id="@+id/action_CreditsFragment_to_ConfigurationFragment"
+            app:destination="@id/ConfigurationFragment" />
+    </fragment>
 </navigation>

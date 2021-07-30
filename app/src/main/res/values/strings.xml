@@ -42,6 +42,15 @@
     <string name="finalInstructionsText2">You can also set the user interface that best suits you, you can choose between buttons or joystick. <br /><br />If you have a gamepad connected to the device, it will be configured automatically, simply operate the vehicle using the buttons or analog axes.</string>
     <string name="closeUserGuide">I want to play!</string>
     <string name="needHelp">Need help?</string>
+    <string name="creditsBtn">Credits</string>
     <string name="helpBtn">Help here</string>
+
+    <string name="titleCredits">Credits</string>
+    <string name="creditsText">This project allows you to learn many technological disciplines (Electronics, Computer Science, Robotics, Internet Services), it is an excellent starting point to enter this world.</string>
+    <string name="creditsMessage">This application has been developed with a lot of love, it is part of a project built as a family and I invite you to learn.</string>
+    <string name="creditsDeveloper">Pablo Toledo</string>
+    <string name="creditsBackBtn">Back to settings</string>
+
+    <string name="credits_fragment_label">Credits</string>
 
 </resources>
