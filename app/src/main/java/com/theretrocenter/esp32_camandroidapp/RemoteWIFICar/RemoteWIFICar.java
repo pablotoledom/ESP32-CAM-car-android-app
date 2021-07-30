@@ -52,8 +52,8 @@ public class RemoteWIFICar {
             Preferences preferences = Preferences.getInstance(context);
 
             // *********** Mock IP server ********
-            if (false) {
-                String mockIP = "192.168.1.32:8080";
+            if (true) {
+                String mockIP = "192.168.1.124";
                 preferences.saveData("RemoteWIFICarIP", mockIP);
                 return mockIP;
             }
@@ -115,8 +115,8 @@ public class RemoteWIFICar {
             JSONObject json = jParser.GetJSONfromUrl(saveSettingsURL, true);
 
             // Show response on activity
-            Log.i("URL Execute action", saveSettingsURL);
-            Log.i("Execute action", json.toString());
+            //Log.i("URL Execute action", saveSettingsURL);
+            //Log.i("Execute action", json.toString());
 
         } catch(Exception ex) {
             // ex.printStackTrace();

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import com.theretrocenter.esp32_camandroidapp.ControlCarFragment;
-import com.theretrocenter.esp32_camandroidapp.R;
 import com.theretrocenter.esp32_camandroidapp.utilities.Preferences;
 import com.theretrocenter.esp32_camandroidapp.utilities.SingletonListener;
 
@@ -84,7 +82,7 @@ public class KeyManage {
         // Execute action only when the command changes
         if (command != "" && command != lastCommand) {
             remoteWIFICar.executeAction(command, remoteWIFICarIP);
-            Log.i("Execute command", command);
+            //Log.i("Execute command", command);
         }
 
         // Set the last command
@@ -92,8 +90,6 @@ public class KeyManage {
     }
 
     public void onKeyUp(int keyCode, KeyEvent event, Context context) {
-        Log.i("Key UP", String.valueOf(keyCode));
-
         Preferences preferences = Preferences.getInstance(context);
         String remoteWIFICarIP = preferences.getData("RemoteWIFICarIP");
         String command = "";
@@ -147,7 +143,7 @@ public class KeyManage {
 
         if (command != "" && command != lastCommand) {
             remoteWIFICar.executeAction(command, remoteWIFICarIP);
-            Log.i("Execute command", command);
+            //Log.i("Execute command", command);
         }
 
         // Set the last command

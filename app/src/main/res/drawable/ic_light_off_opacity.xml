@@ -69,7 +69,7 @@
                 android:gradientRadius="37.70109"
                 android:tileMode="clamp">
                 <item
-                    android:color="#11000000"
+                    android:color="#6A252525"
                     android:offset="0" />
                 <item
                     android:color="#23BCBEC0"
