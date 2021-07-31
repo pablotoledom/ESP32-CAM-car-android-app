@@ -28,7 +28,8 @@ public class UserGuideFragment  extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        //skipUserGuide();
+        // Skip user guide when viewed
+        skipUserGuide();
         return inflater.inflate(R.layout.user_guide, container, false);
     }
 
