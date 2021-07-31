@@ -110,7 +110,7 @@ public class ConfigurationFragment extends Fragment {
             public void onClick(View clickView) {
                 loading = new ProgressDialog(thisContext);
                 loading.setCancelable(true);
-                loading.setMessage("Searching WIFI networks");
+                loading.setMessage(getString(R.string.searchingWIFIText));
                 loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 loading.show();
 
@@ -150,7 +150,7 @@ public class ConfigurationFragment extends Fragment {
             public void onClick(View view) {
                 loading = new ProgressDialog(thisContext);
                 loading.setCancelable(true);
-                loading.setMessage("Saving data");
+                loading.setMessage(getString(R.string.savingDataText));
                 loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 loading.show();
 

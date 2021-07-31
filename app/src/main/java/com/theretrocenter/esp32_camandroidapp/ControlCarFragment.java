@@ -81,7 +81,7 @@ public class ControlCarFragment extends Fragment {
         // Loading dialog while finding for IP
         loading = new ProgressDialog(context);
         loading.setCancelable(true);
-        loading.setMessage("Searching your Remote WIFI Car on the network. \n\nPlease wait a few minutes.");
+        loading.setMessage(getString(R.string.loadingTextFindIP));
         loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         loading.show();
 

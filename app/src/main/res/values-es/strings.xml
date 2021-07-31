@@ -1,0 +1,58 @@
+<resources>
+    <!-- Fragmento Control de vehículo -->
+    <string name="app_name">ESP32-CAM Android App</string>
+    <string name="action_settings">Configuración</string>
+    <string name="loadingTextFindIP">Buscando el vehículo WIFI Remoto en la red. \n\nPor favor espere unos minutos.</string>
+    <string name="user_guide_fragment_label">Guia de usuario</string>
+    <string name="control_car_fragment_label">Control del vehículo</string>
+    <string name="configuration_fragment_label">Configuración</string>
+    <string name="config">WIFI y configuración</string>
+    <string name="claxon">Claxon</string>
+    <string name="upButton">Avanzar</string>
+    <string name="downButton">Retroceder</string>
+    <string name="leftButton">Girar izquierda</string>
+    <string name="rightButton">Girar derecha</string>
+    <string name="light">Luz</string>
+    <string name="previous">Anterior</string>
+
+    <!-- Fragmento Configuración -->
+    <string name="configTitle">Configuración</string>
+    <string name="wifiConfigTitle">Redes WIFI disponibles</string>
+    <string name="wifiDownText">Haga clic para agregar al cuadro de texto de configuración WIFI.</string>
+    <string name="searchingWIFIText">Buscando redes WIFI</string>
+    <string name="saveBtn">Guardar</string>
+    <string name="cancelBtn">Cancelar</string>
+    <string name="savingDataText">Guardando datos</string>
+    <string name="scanWIFIBtn">Escanear redes WIFI</string>
+    <string name="controlTitle">Control</string>
+    <string name="radioButtonButtons">Botones</string>
+    <string name="radioButtonjoystick">Joystick Virtual</string>
+    <string name="downControlTitleText">Seleccione su control de IU preferido</string>
+    <string name="statusTitle">Estado</string>
+    <string name="ssidWIFIText">SSID</string>
+    <string name="passWIFIText">Contraseña</string>
+
+    <!-- Fragmento Guia de usuario -->
+    <string name="userGuideTitle">Guia de usuario</string>
+    <string name="firstInstructions">Conéctese al vehículo por primera vez:</string>
+    <string name="firstInstructionsText">Encienda el vehículo, después de unos segundos se podrá conectar a una red WIFI llamada (Remote WIFI car). <br /><br />Una vez conectado, presione el botón Continuar y la aplicación buscará el vehículo en la red.</string>
+    <string name="secondInstructions">Pantalla de control principal:</string>
+    <string name="secondInstructionsText">Esta es la pantalla principal, aquí puede mover el vehículo, hacer sonar la bocina y encender la luz de la cámara, para configurar el vehículo presione el icono de engranaje.</string>
+    <string name="finalInstructions">Conecte el vehículo a la red WIFI de su hogar:</string>
+    <string name="finalInstructionsText">En la sección de configuración puedes escanear las redes WIFI cercanas, una vez que encuentres la tuya, selecciónala e ingresa la contraseña si corresponde. Después de guardar los cambios es necesario reiniciar el vehículo y esta aplicación.</string>
+    <string name="finalInstructions2">Interfaz y control de usuario del vehículo:</string>
+    <string name="finalInstructionsText2">También puedes configurar la interfaz de usuario que más te convenga, puedes elegir entre botones o un joystick virtual. <br /><br />Si tiene un gamepad o teclado conectado al dispositivo, se configurará automáticamente, simplemente opere el vehículo usando los botones o ejes analógicos.</string>
+    <string name="closeUserGuide">¡Quiero jugar!</string>
+    <string name="needHelp">¿Necesita ayuda?</string>
+    <string name="creditsBtn">Créditos</string>
+    <string name="helpBtn">Ayuda aquí</string>
+
+    <!-- Fragmento Créditos -->
+    <string name="titleCredits">Créditos</string>
+    <string name="creditsText">Este proyecto te permite aprender muchas disciplinas tecnológicas (Electrónica, Informática, Robótica, Servicios de Internet), es un excelente punto de partida para adentrarte en este mundo.</string>
+    <string name="creditsMessage">Esta aplicación ha sido desarrollada con mucho cariño, es parte de un proyecto construido en familia y los invito a aprender.</string>
+    <string name="creditsDeveloper">Pablo Toledo</string>
+    <string name="creditsBackBtn">Volver a la configuración</string>
+    <string name="credits_fragment_label">Créditos</string>
+
+</resources>
