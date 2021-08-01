@@ -92,9 +92,8 @@ If you have a **gamepad or keyboard** connected to the device, it will be config
 
 Configured buttons, you can use any of the following buttons:
 
-Gamepad:
+### Gamepad:
 **Forward**: Analog Up - Button Up - R1 - R2
-
 **Backward**: Analog Down - Down Button - L1 - L2
 
 **Rotate Left**: Analog Left - Left Button
@@ -108,7 +107,7 @@ Gamepad:
 **Enter Configuration**: Start Button
 
 
-Keyboard:
+### Keyboard:
 **Forward**: Up Key
 **Backward**: Down Key
 **Rotate Left**: Left Key
