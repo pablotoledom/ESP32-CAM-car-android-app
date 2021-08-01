@@ -1,114 +1,117 @@
+
 # ESP32-CAM-car-android-app
 
-Android application for remote control vehicle via WIFI.
+Aplicación Android para vehículo a control remoto mediante WIFI.
 
-This application is part of the project: [ESP32-CAM-car-server](https://github.com/pablotoledom/ESP32-CAM-car-server), where you can mount a remote control vehicle using an ESP32-CAM micro-controller.
+Esta aplicación es parte del proyecto: [ESP32-CAM-car-server](https://github.com/pablotoledom/ESP32-CAM-car-server), donde podrá montar un vehículo a control remoto usando un micro-controlador ESP32-CAM.
 
-If you have already built the vehicle and want to drive it with this application, please read this file completely as it can be of great help to you.
+Si ya construyó el vehículo y desea manejarlo con esta aplicación, lea completamente este archivo ya que puede serle de gran ayuda.
 
-[Click aquí para leame en español](https://github.com/pablotoledom/ESP32-CAM-car-android-app/blob/main/LEAME.md)
+[Click here for english readme](https://github.com/pablotoledom/ESP32-CAM-car-android-app/blob/main/README.md)
 
-## Starting 🚀
+## Comenzando 🚀
 
-If you do not know the WIFI remote control vehicle, here is a video of the result:
+Si no conoce el vehículo a control remoto WIFI, acá un video del resultado:
 
-[![IMAGE Remote WIFI car video](https://img.youtube.com/vi/02oBJucxMBU/0.jpg)](https://www.youtube.com/watch?v=02oBJucxMBU)
+[![IMAGE Video del vehículo WIFI](https://img.youtube.com/vi/02oBJucxMBU/0.jpg)](https://www.youtube.com/watch?v=02oBJucxMBU)
 
-Some screenshots of this application:
+Algunas capturas de esta aplicación:
 
 ![alt Screenshot port](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/capture_port.png)
 
 ![alt Screenshot land](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/capture_land.png)
 
-### Pre requirements 📋
+### Pre-requisitos 📋
 
 - Android Estudio
-- Physical or virtual device with minimum Android Jelly Bean 4.1 (API 16), recommended Android Oreo 8.0 (API 26)
+- Dispositivo físico o virtual con mínimo Android Jelly Bean 4.1 (API 16), recomendado Android Oreo 8.0 (API 26)
 
-### Installing the software 🔧
+### Instalación del software 🔧
 
-#### 1) clone the project from Github
+#### 1) clonar el proyecto desde Github
 
-Run the following command on your console
+Ejecuta el siguiente comando en tu consola
 
 ```console
 git clone https://github.com/pablotoledom/ESP32-CAM-car-android-app.git
 ```
 
-#### 2) Open the project with the Android Studio IDE
+#### 2) Abrir el proyecto con el IDE de Android Studio
 
-After opening the project verify that the dependencies have been downloaded correctly, otherwise you can rerun your Gradle file.
-
-## Deployment 📦
-
-Method 1: You can download the APK file and install it directly on your device, download it from the "release" section.
-
-Method 2: Compile the executable using the Android Studio IDE, this method may be more useful for those who have knowledge of Android application programming or the Java language, you can also make changes or improvements to this application.
-
-## Connect to Vehicle 🎮
-
-When you start the vehicle and it cannot connect to a Wi-Fi network within 10 seconds, it will automatically pick up a Wi-Fi access point called "Remote WIFI Car".
-
-![alt WIFI connect](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/capture_wifi.png)
-
-After you connect to that network, you must open the application on your device.
-
-If after 10 seconds you do not see this WIFI access point, it is possible that the vehicle is already linked to a WIFI network.
-
-### The application:
-
-When you open the application, the first thing you will see is a user guide in Spanish or English, the language will change depending on the language configured on your device.
+Luego de abrir el proyecto verificar que las dependencias se hayan descargado correctamente, en caso contrario puede volver a correr su archivo Gradle.
 
 
-![alt User guide](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/screenshot_guide.png)
+## Despliegue 📦
 
-This guide provides quick help to get started with the application. Press the button at the end of the guide to go to the vehicle control screen.
+Método 1: Puede descargar el archivo APK e instalar directamente en su dispositivo, descárguelo desde la sección "release".
 
-The first thing the application will do is search for the vehicle on the network, whether it is connected to the WIFI of your home or the WIFI of the vehicle, the application will go through the range of IPs until it finds the correct one.
+Método 2: Compilar el ejecutable usando el IDE de Android Studio, este método puede resultar más útil para quienes posean conocimientos en programación de aplicaciones Android o en el lenguaje Java, también podrá realizar cambios o mejoras a esta aplicación.
 
-![alt Searching car](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/screenshot_search.png)
 
-When the application recognizes the vehicle's IP, it is enabled to control it, the control view is as follows:
+## Conectarse al Vehículo 🎮
 
-![alt Control screen](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/screenshot.png)
+Cuando enciende el vehículo y este no logra conectarse a una red wifi dentro de un plazo de 10 segundos levantará automáticamente un punto de acceso WIFI llamado "Remote WIFI Car".
 
-This screen allows you to move the vehicle, turn on the light, honk the horn, and change some settings.
+![alt Connectar WIFI](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/capture_wifi.png)
 
-#### Configuration section:
+Luego que se conecte a dicha red, deberá abrir la aplicación en su dispositivo.
 
-In the configuration section you can scan the nearby WIFI networks, once you see yours, select it and enter the password if applicable. After saving the changes it is necessary to **restart the vehicle and this application**.
+Si luego de 10 segundos no visualiza este punto de acceso WIFI es posible que el vehículo ya se encuentre enlazado a una red WIFI.
 
- ![alt WIFI Config](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/screenshot_wifi.png)
+### La aplicación:
 
-#### Vehicle user interface and control:
+Al abrir la aplicación lo primero que verá es una guía de usuario en español o inglés, el lenguaje cambiará dependiendo del idioma configurado en su dispositivo.
 
-You can also set the user interface that best suits you, you can choose between buttons or virtual joystick.
 
-![alt UI Config](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/screenshot_ui.png)
+![alt Guia de usuario](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/screenshot_guide.png)
 
-If you have a **gamepad or keyboard** connected to the device, it will be configured automatically, simply operate the vehicle using the buttons or analog axes.
+Esta guía entrega una ayuda rápida para comenzar a utilizar la aplicación. Presione el botón al final de la guía para pasar a la pantalla de control del vehículo.
 
-![alt Human interface](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/human-controls.png)
+Lo primero que hará la aplicación es buscar el vehículo en la red, ya sea que esté conectado al WIFI de su hogar o al WIFI del vehículo la aplicación recorrerá el rango de IPs hasta encontrar la correcta.
 
-Configured buttons, you can use any of the following buttons:
+![alt Buscando vehículo](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/screenshot_search.png)
+
+Cuando la aplicación reconoce la IP del vehículo se habilita para poder controlarlo, la vista de control es la siguiente:
+
+![alt Pantalla de control](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/screenshot.png)
+
+Esta pantalla permite mover el vehículo, encender la luz, tocar la bocina y cambiar algunas configuraciones.
+
+#### Sección de configuración:
+
+En la sección de configuración podrá escanear las redes WIFI cercanas, una vez que visualice la suya, seleccione la e ingrese la contraseña si corresponde. Luego de guardar los cambios es necesario **reiniciar el vehículo y esta aplicación**.
+
+ ![alt Configurar WIFI](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/screenshot_wifi.png)
+
+#### Interfaz de usuario y control del vehículo:
+
+También podrá establecer la interfaz de usuario que más le acomode, puede elegir entre botones o joystick virtual.
+
+![alt Configurar UI](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/screenshot_ui.png)
+
+Si posee un **gamepad o teclado** conectado al dispositivo, este se configurará en forma automática, simplemente maneje el vehículo por medio de los botones o ejes análogos.
+
+![alt Interfaz humana](https://raw.githubusercontent.com/pablotoledom/ESP32-CAM-car-android-app/main/images/human-controls.png)
+
+Botones configurados, puede usar cualquiera de los siguientes:
 
 Gamepad:
-    **Forward**: Analog Up - Button Up - R1 - R2
-    **Backward**: Analog Down - Down Button - L1 - L2
-    **Rotate Left**: Analog Left - Left Button
-    **Rotate Right**: Right Analog - Right Button
-    **Light On / Off**: X button
-    **Honk**: Button A
-    **Enter Configuration**: Start Button
+    **Avanzar**: Análogo Arriba - Botón Arriba - R1 - R2
+    **Retroceder**: Análogo Abajo - Botón Abajo - L1 - L2
+    **Girar Izquierda**: Análogo Izquierda - Botón Izquierda
+    **Girar Derecha**: Análogo Derecha - Botón Derecha
+    **Encender / Apagar Luz**: Botón X
+    **Tocar Bocina**: Botón A
+    **Ingresar a Configuración**: Botón Start
 
-Keyboard:
-    **Forward**: Up Key
-    **Backward**: Down Key
-    **Rotate Left**: Left Key
-    **Rotate Right**: Right Key
-    **Light On / Off**: Q key
-    **Honk**: Space Key
-    **Enter Configuration**: W key
+Teclado:
+    **Avanzar**: Tecla Arriba
+    **Retroceder**: Tecla Abajo
+    **Girar Izquierda**: Tecla Izquierda
+    **Girar Derecha**: Tecla Derecha
+    **Encender / Apagar Luz**: Tecla Q
+    **Tocar Bocina**: Tecla Espacio
+    **Ingresar a Configuración**: Tecla W
 
 ## Autor
 
@@ -117,4 +120,4 @@ Pablo Toledo
 
 ## Licencia 📄
 
-This project is under the Apache License, Version 2.0 - see the file [LICENCE](https://github.com/pablotoledom/ESP32-CAM-car-android-app/blob/main/LICENCE) for details.
+Este proyecto está bajo la Licencia Apache, Versión 2.0 - mira el archivo [LICENCIA](https://github.com/pablotoledom/ESP32-CAM-car-android-app/blob/main/LICENCIA) para detalles.
