@@ -117,4 +117,4 @@ Pablo Toledo
 
 ## Licencia 📄
 
-This project is under the Apache License, Version 2.0 - see the file [LICENCE](https://github.com/pablotoledom/ESP32-CAM-car-android-app/blob/main/LICENCE) for details.
+This project is under the Apache License, Version 2.0 - see the file [LICENSE](https://github.com/pablotoledom/ESP32-CAM-car-android-app/blob/main/LICENSE) for details.
