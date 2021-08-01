@@ -95,23 +95,35 @@ Si posee un **gamepad o teclado** conectado al dispositivo, este se configurará
 
 Botones configurados, puede usar cualquiera de los siguientes:
 
-Gamepad:
-    **Avanzar**: Análogo Arriba - Botón Arriba - R1 - R2
-    **Retroceder**: Análogo Abajo - Botón Abajo - L1 - L2
-    **Girar Izquierda**: Análogo Izquierda - Botón Izquierda
-    **Girar Derecha**: Análogo Derecha - Botón Derecha
-    **Encender / Apagar Luz**: Botón X
-    **Tocar Bocina**: Botón A
-    **Ingresar a Configuración**: Botón Start
+### Gamepad:
+**Avanzar**: Análogo Arriba - Botón Arriba - R1 - R2
 
-Teclado:
-    **Avanzar**: Tecla Arriba
-    **Retroceder**: Tecla Abajo
-    **Girar Izquierda**: Tecla Izquierda
-    **Girar Derecha**: Tecla Derecha
-    **Encender / Apagar Luz**: Tecla Q
-    **Tocar Bocina**: Tecla Espacio
-    **Ingresar a Configuración**: Tecla W
+**Retroceder**: Análogo Abajo - Botón Abajo - L1 - L2
+
+**Girar Izquierda**: Análogo Izquierda - Botón Izquierda
+
+**Girar Derecha**: Análogo Derecha - Botón Derecha
+
+**Encender / Apagar Luz**: Botón X
+
+**Tocar Bocina**: Botón A
+
+**Ingresar a Configuración**: Botón Start
+
+### Teclado:
+**Avanzar**: Tecla Arriba
+
+**Retroceder**: Tecla Abajo
+
+**Girar Izquierda**: Tecla Izquierda
+
+**Girar Derecha**: Tecla Derecha
+
+**Encender / Apagar Luz**: Tecla Q
+
+**Tocar Bocina**: Tecla Espacio
+
+**Ingresar a Configuración**: Tecla W
 
 ## Autor
 

@@ -94,6 +94,7 @@ Configured buttons, you can use any of the following buttons:
 
 ### Gamepad:
 **Forward**: Analog Up - Button Up - R1 - R2
+
 **Backward**: Analog Down - Down Button - L1 - L2
 
 **Rotate Left**: Analog Left - Left Button
@@ -109,11 +110,17 @@ Configured buttons, you can use any of the following buttons:
 
 ### Keyboard:
 **Forward**: Up Key
+
 **Backward**: Down Key
+
 **Rotate Left**: Left Key
+
 **Rotate Right**: Right Key
+
 **Light On / Off**: Q key
+
 **Honk**: Space Key
+
 **Enter Configuration**: W key
 
 ## Autor
