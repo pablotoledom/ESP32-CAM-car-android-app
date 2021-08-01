@@ -41,7 +41,7 @@ After opening the project verify that the dependencies have been downloaded corr
 
 ## Deployment 📦
 
-Method 1: You can download the APK file and install it directly on your device, download it from the "release" section.
+Method 1: You can download the APK file and install it directly on your device, download it from the [releases](https://github.com/pablotoledom/ESP32-CAM-car-android-app/releases) section.
 
 Method 2: Compile the executable using the Android Studio IDE, this method may be more useful for those who have knowledge of Android application programming or the Java language, you can also make changes or improvements to this application.
 
@@ -93,22 +93,29 @@ If you have a **gamepad or keyboard** connected to the device, it will be config
 Configured buttons, you can use any of the following buttons:
 
 Gamepad:
-    **Forward**: Analog Up - Button Up - R1 - R2
-    **Backward**: Analog Down - Down Button - L1 - L2
-    **Rotate Left**: Analog Left - Left Button
-    **Rotate Right**: Right Analog - Right Button
-    **Light On / Off**: X button
-    **Honk**: Button A
-    **Enter Configuration**: Start Button
+**Forward**: Analog Up - Button Up - R1 - R2
+
+**Backward**: Analog Down - Down Button - L1 - L2
+
+**Rotate Left**: Analog Left - Left Button
+
+**Rotate Right**: Right Analog - Right Button
+
+**Light On / Off**: X button
+
+**Honk**: Button A
+
+**Enter Configuration**: Start Button
+
 
 Keyboard:
-    **Forward**: Up Key
-    **Backward**: Down Key
-    **Rotate Left**: Left Key
-    **Rotate Right**: Right Key
-    **Light On / Off**: Q key
-    **Honk**: Space Key
-    **Enter Configuration**: W key
+**Forward**: Up Key
+**Backward**: Down Key
+**Rotate Left**: Left Key
+**Rotate Right**: Right Key
+**Light On / Off**: Q key
+**Honk**: Space Key
+**Enter Configuration**: W key
 
 ## Autor
 

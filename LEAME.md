@@ -43,7 +43,7 @@ Luego de abrir el proyecto verificar que las dependencias se hayan descargado co
 
 ## Despliegue 📦
 
-Método 1: Puede descargar el archivo APK e instalar directamente en su dispositivo, descárguelo desde la sección "release".
+Método 1: Puede descargar el archivo APK e instalar directamente en su dispositivo, descárguelo desde la sección [releases](https://github.com/pablotoledom/ESP32-CAM-car-android-app/releases).
 
 Método 2: Compilar el ejecutable usando el IDE de Android Studio, este método puede resultar más útil para quienes posean conocimientos en programación de aplicaciones Android o en el lenguaje Java, también podrá realizar cambios o mejoras a esta aplicación.
 
