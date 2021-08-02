@@ -31,13 +31,13 @@ public class ControlCarFragment extends Fragment {
     private String lastCommand = "";
     private Boolean ligthOn = false;
     private Boolean forwardActived = false;
-    Context context;
-    ProgressDialog loading;
+    private Context context;
+    private ProgressDialog loading;
+    private Boolean isFindingCar = false;
 
     // Get saved preferences
     private String carUIControl = preferences.getData("CarUIControl");
     private String remoteWIFICarIP = preferences.getData("RemoteWIFICarIP");
-    private String sawUserGuide = preferences.getData("SawUserGuide");
 
     public void moveCar(Integer x, Integer y) {
         String command = "";
@@ -78,38 +78,44 @@ public class ControlCarFragment extends Fragment {
     }
 
     public void connectWithCar() {
-        // Loading dialog while finding for IP
-        loading = new ProgressDialog(context);
-        loading.setCancelable(true);
-        loading.setMessage(getString(R.string.loadingTextFindIP));
-        loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        loading.show();
+        if (!isFindingCar) {
+            // Prevent a second search instance from running
+            isFindingCar = true;
 
-        // Timeout one second
-        new android.os.Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            public void run() {
-                try {
-                    // Get local IP
-                    IPAddress ipAddress = new IPAddress();
-                    String localIP = ipAddress.getLocalIP(true);
+            // Loading dialog while finding for IP
+            loading = new ProgressDialog(context);
+            loading.setCancelable(true);
+            loading.setMessage(getString(R.string.loadingTextFindIP));
+            loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            loading.show();
 
-                    // Get Remote WIFI car IP
-                    RemoteWIFICar remoteWifiCar = new RemoteWIFICar();
-                    remoteWIFICarIP = remoteWifiCar.finderIP(localIP, mainActivity);
-                    Log.i("Remote WIFI Car IP", remoteWIFICarIP);
+            // Timeout one second
+            new android.os.Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                public void run() {
+                    try {
+                        // Get local IP
+                        IPAddress ipAddress = new IPAddress();
+                        String localIP = ipAddress.getLocalIP(true);
 
-                    // Load video jpeg
-                    showCam();
+                        // Get Remote WIFI car IP
+                        RemoteWIFICar remoteWifiCar = new RemoteWIFICar();
+                        remoteWIFICarIP = remoteWifiCar.finderIP(localIP, mainActivity);
+                        Log.i("Remote WIFI Car IP", remoteWIFICarIP);
 
-                    // Hidde loading message
-                    loading.hide();
-                    loading.dismiss();
+                        // Load video jpeg
+                        showCam();
 
-                } catch(Exception ex) {
-                    ex.printStackTrace();
+                        // Hidde loading message
+                        loading.hide();
+                        loading.dismiss();
+                        isFindingCar = false;
+
+                    } catch(Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
-            }
-        },1000);
+            },1000);
+        }
     }
 
     @Override
@@ -124,6 +130,24 @@ public class ControlCarFragment extends Fragment {
             //ex.printStackTrace();
         }
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();  // Always call the superclass method first
+
+        // Stop viewer when rotate display
+        viewer.stopStream();
+        // Dismiss dialog when rotate display
+        loading.hide();
+        loading.dismiss();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+
+        // Find car in the network
+        connectWithCar();
     }
 
     @Override

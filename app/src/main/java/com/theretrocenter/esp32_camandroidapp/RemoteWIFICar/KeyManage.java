@@ -1,7 +1,6 @@
 package com.theretrocenter.esp32_camandroidapp.RemoteWIFICar;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.KeyEvent;
 
 import com.theretrocenter.esp32_camandroidapp.utilities.Preferences;

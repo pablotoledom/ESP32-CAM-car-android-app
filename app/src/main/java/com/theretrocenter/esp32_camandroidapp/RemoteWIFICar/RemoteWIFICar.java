@@ -1,6 +1,5 @@
 package com.theretrocenter.esp32_camandroidapp.RemoteWIFICar;
 
-
 import android.content.Context;
 import android.util.Log;
 
@@ -80,7 +79,6 @@ public class RemoteWIFICar {
 
                 // Third test: Loop finder IP in network
                 for (Integer endIP = 1 ; endIP <= 255 ; endIP++) {
-                // for (Integer endIP = 1 ; endIP <= 2 ; endIP++) {
                     String ipForTest = baseIPScan + endIP;
 
                     Boolean testIP = networkPing(ipForTest);
@@ -115,8 +113,8 @@ public class RemoteWIFICar {
             JSONObject json = jParser.GetJSONfromUrl(saveSettingsURL, true);
 
             // Show response on activity
-            //Log.i("URL Execute action", saveSettingsURL);
-            //Log.i("Execute action", json.toString());
+            Log.i("URL Execute action", saveSettingsURL);
+            Log.i("Execute action", json.toString());
 
         } catch(Exception ex) {
             // ex.printStackTrace();

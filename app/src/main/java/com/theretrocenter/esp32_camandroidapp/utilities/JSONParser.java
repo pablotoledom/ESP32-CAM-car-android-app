@@ -1,13 +1,16 @@
 package com.theretrocenter.esp32_camandroidapp.utilities;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
+import android.util.Log;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.json.JSONException;
 
@@ -21,35 +24,49 @@ public class JSONParser {
 
     // Get Json data from URL method
     public JSONObject GetJSONfromUrl(String url, Boolean useTimeOut){
+        String responseText = "";
         HttpParams httpParameters = new BasicHttpParams();
         if(useTimeOut) {
-            HttpConnectionParams.setConnectionTimeout(httpParameters, 1000);
-            HttpConnectionParams.setSoTimeout(httpParameters, 1000);
+            HttpConnectionParams.setConnectionTimeout(httpParameters, 2000);
+            HttpConnectionParams.setSoTimeout(httpParameters, 2000);
         }
 
-        String serverResponseString = "";
+        CloseableHttpClient httpclient = HttpClientBuilder.create().disableAutomaticRetries().build();
+
+        //String serverResponseString = "";
 
         try {
             // HTTP call
-            HttpClient client = HttpClientBuilder.create().disableAutomaticRetries().build();
             HttpGet httpget = new HttpGet(url);
             httpget.setParams(httpParameters);
-            ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            serverResponseString = client.execute(httpget, responseHandler);
+            CloseableHttpResponse response = httpclient.execute(httpget);
+
+            HttpEntity entity = response.getEntity();
+            responseText = EntityUtils.toString(entity);
+
+            // Log.i("Execute command", responseText);
+
+            try {
+                httpget.abort();
+            } finally {
+                response.close();
+            }
+
+            try {
+                // Parse string to json object
+                jsonOb = new JSONObject(responseText);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return null;
+            }
+
+            httpclient.close();
+
+            return jsonOb;
 
         } catch(Exception ex) {
-            // ex.printStackTrace();
+            //ex.printStackTrace();
             return null;
         }
-
-        try {
-            // Parse string to json object
-            jsonOb = new JSONObject(serverResponseString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        return jsonOb;
     }
 }
